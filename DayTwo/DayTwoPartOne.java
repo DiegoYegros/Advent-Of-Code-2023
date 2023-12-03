@@ -136,14 +136,5 @@ public class DayTwoPartOne {
         public String getColor() {
             return this.color;
         }
-
-        public static Color fromCode(String code) {
-            for (var color : Color.values()) {
-                if (code.equals(color.getColor())) {
-                    return color;
-                }
-            }
-            return null;
-        }
     }
 }
