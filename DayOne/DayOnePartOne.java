@@ -8,10 +8,6 @@ public class DayOnePartOne {
         resolveDayOneProblemOne(list);
     }
 
-    /**
-     * @param list
-     * @return
-     */
     private static int resolveDayOneProblemOne(List<String> list) {
         int totalSum = 0;
         for (var item : list) {
