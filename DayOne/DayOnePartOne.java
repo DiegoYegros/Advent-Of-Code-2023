@@ -1,6 +1,8 @@
 import java.io.*;
 import java.util.List;
 
+import Utils.Utils;
+
 public class DayOnePartOne {
     public static void main(String[] args) throws IOException {
         var list = Utils.getLinesFromFilePath("src/DayOne.txt");

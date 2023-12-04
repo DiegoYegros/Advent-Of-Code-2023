@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import Utils.Utils;
+
 public class DayTwoPartTwo {
     public static void main(String[] args) throws IOException {
         var lines = Utils.getLinesFromFilePath("src/DayTwo.txt");
@@ -47,33 +49,30 @@ public class DayTwoPartTwo {
             String gameID = line.substring(4, line.indexOf(":"));
             Container container = new Container();
             container.setGameID(gameID);
+    
             var bags = line.substring(line.indexOf(":") + 2);
             var eachBag = bags.split("; ");
-
+    
             var listOfPlays = new ArrayList<Play>();
             for (var bag : eachBag) {
-                var eachPlay = bag.split(", ");
-                for (var play : eachPlay) {
-                    var playObject = new Play();
-                    for (var color : Color.values()) {
-                        Pattern pattern = Pattern.compile(Pattern.quote(color.getColor()));
-                        Matcher matcher = pattern.matcher(play);
-                        if (matcher.find()) {
-                            var newPlay = play.replace(play.substring(matcher.start() - 1, matcher.end()), "");
-                            var playTimes = Integer.parseInt(newPlay);
+                String[] playDetails = bag.split(", ");
+                for (String play : playDetails) {
+                    Play playObject = new Play();
+                    for (Color color : Color.values()) {
+                        if (play.contains(color.getColor())) {
+                            String amountStr = play.split(" ")[0];
+                            int playTimes = Integer.parseInt(amountStr);
                             playObject.setAmount(playTimes);
                             playObject.setColor(color);
                             listOfPlays.add(playObject);
                         }
                     }
                 }
-                container.setBag(listOfPlays);
             }
-            containers.add(container);
+            container.setBag(listOfPlays);
         }
         return containers;
     }
-
     private static class Container {
         String gameID;
         List<Play> bag;
